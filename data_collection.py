@@ -1,21 +1,4 @@
-"""
-LIFT UP Bildiri Kitabı PDF Veri Çıkarıcı
-
-Bu script, akademik bildiri kitaplarından makale bilgilerini otomatik olarak çıkarır.
-Her makale için şu bilgiler çıkarılır:
-- Sayfa numarası
-- Yıl bilgisi (2020-2021)
-- Türkçe + İngilizce başlık (ikisi bir arada Title_TR kolonunda)
-- (Boş bırakılan) İngilizce başlık kolonu (Title_EN)
-- Türkçe özet
-- İngilizce özet
-
-Çıktı: CSV formatında (PageNumber, Year, Title_TR, Title_EN, Abstract_TR, Abstract_EN).
-Bu versiyonda Title_TR içinde hem Türkçe hem İngilizce başlık yer alır,
-Title_EN ise bilerek boş bırakılır; İngilizce başlık sonradan manuel olarak kopyalanacaktır.
-"""
-
-import fitz  # PyMuPDF
+import fitz
 import re
 import csv
 import sys
@@ -45,7 +28,7 @@ def extract_title(page):
     - "Özetçe" / "Abstract" gördüğünde başlık toplamayı bırakır.
     - İlk birkaç (en fazla 5) başlık satırını birleştirip tek bir metin döner.
 
-    Dönen sonuç doğrudan CSV'deki Title_TR kolonuna yazılır (TR / EN birlikte).
+    Dönen sonuç doğrudan CSV'deki Title_TR kolonuna yazılır (TR \ EN birlikte).
     Title_EN kolonu bu script içinde bilerek boş bırakılır.
     """
     info = page.get_text("dict")
@@ -119,8 +102,7 @@ def extract_title(page):
     if not raw_lines:
         return ""
 
-    # TR / EN ayrımı: sadece karakter yapısına ve sıra bilgisine göre böl
-    # Varsayım: Önce Türkçe başlık(lar), sonra İngilizce başlık(lar) geliyor.
+    # TR \ EN ayrımı: sadece karakter yapısına ve sıra bilgisine göre böl
     tr_lines = []
     en_lines = []
     found_english = False
@@ -153,7 +135,7 @@ def extract_title(page):
     title_en = clean_text(" ".join(en_lines)) if en_lines else ""
 
     if title_tr and title_en:
-        return f"{title_tr} / {title_en}"
+        return f"{title_tr} \ {title_en}"
     if title_tr:
         return title_tr
     if title_en:
@@ -237,12 +219,10 @@ def process_pdf(pdf_path, year, output_csv=None):
             print(f"{'='*80}")
             
             # Makale bilgilerini çıkar
-            # Yıl bilgisi artık dışarıdan verilen 'year' parametresinden alınır
             title = extract_title(page)
             abstract_tr = extract_abstract_tr(text)
             abstract_en = extract_abstract_en(text)
 
-            # Debug bilgileri
             print(f"Başlık (TR+EN): {title[:100]}...")
             print(f"Türkçe Özet: {abstract_tr[:100]}...")
             print(f"İngilizce Özet: {abstract_en[:100]}...")
