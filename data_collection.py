@@ -269,7 +269,7 @@ def process_pdf(pdf_path, year, output_csv=None):
 if __name__ == "__main__":
     # PDF dosya yolu
     year = "2021-2022"
-    pdf_path = f"{year}/105_202.pdf"
+    pdf_path = f"{year}/504_548.pdf"
     
     try:
         process_pdf(pdf_path, year)
