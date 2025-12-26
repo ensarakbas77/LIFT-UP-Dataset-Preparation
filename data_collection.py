@@ -13,7 +13,7 @@ import glob
 YEAR = "2021-2022"
 
 # PDF dosyası, klasörü veya glob pattern
-PDF_PATH = "Bildiri-Kitabi-2021-2022.pdf"
+PDF_PATH = f"Bildiri-Kitabi-{YEAR}.pdf"
 
 # Çıktı klasörü (None ise PDF ile aynı yerde oluşturulur)
 OUTPUT_DIR = None
@@ -162,6 +162,75 @@ def extract_abstract_en(text: str) -> str:
     pattern = r"Abstract\s*[—\-–]+\s*(.*?)\s*(?=Keywords)"
     match = re.search(pattern, text, re.DOTALL | re.IGNORECASE)
     return clean_text(match.group(1)) if match else ""
+
+
+def extract_keywords_tr(text: str) -> str:
+    """
+    Türkçe anahtar kelimeleri "Anahtar Kelimeler—" ile "Abstract" arasından çıkarır.
+    
+    Anahtar kelimeler genellikle Türkçe özetin hemen ardından gelir ve virgülle ayrılmış
+    kelime/kelime grupları şeklindedir.
+    
+    Args:
+        text: İşlenecek metin
+        
+    Returns:
+        Türkçe anahtar kelimeler (virgülle ayrılmış)
+    """
+    # "Anahtar Kelimeler" ile "Abstract" arasındaki metni yakala
+    # Farklı tire karakterlerini (—, -, –, :, ;) destekle
+    # Noktalı virgül (;) bazı makalelerde kullanılıyor
+    pattern = r"Anahtar\s*Kelimeler\s*[—:\-–;]+\s*(.*?)\s*(?=Abstract)"
+    match = re.search(pattern, text, re.DOTALL | re.IGNORECASE)
+    return clean_text(match.group(1)) if match else ""
+
+
+def extract_keywords_en(text: str) -> str:
+    """
+    İngilizce anahtar kelimeleri "Keywords—" ile "Giriş" veya "Problem Tanımı" bölümü arasından çıkarır.
+    
+    Anahtar kelimeler genellikle İngilizce özetin hemen ardından gelir ve virgülle ayrılmış
+    kelime/kelime grupları şeklindedir. Giriş bölümü farklı formatlarda olabilir:
+    - "I." veya "I " (Roma rakamı) - yeni satırda veya aynı satırda olabilir
+    - "GİRİŞ" (Türkçe)
+    - "INTRODUCTION" (İngilizce)
+    - "PROBLEM" veya "PROBLEMİN TANIMI" gibi varyasyonlar
+    - Bazen hiçbir başlık olmayabilir, bu durumda ilk satırı al
+    
+    Args:
+        text: İşlenecek metin
+        
+    Returns:
+        İngilizce anahtar kelimeler (virgülle ayrılmış)
+    """
+    # "Keywords" ile giriş bölümü arasındaki metni yakala
+    # Farklı tire karakterlerini (—, -, –, :, ;) destekle
+    # Noktalı virgül (;) bazı makalelerde kullanılıyor
+    # Giriş bölümü için birden fazla pattern kontrol et:
+    # - \n\s*I\. : yeni satırda "I." (eski pattern)
+    # - I\.\s : "I." sonrası boşluk (I. GİRİŞ, I. PROBLEM gibi aynı satırda)
+    # - PROBLEM : "PROBLEM TANIMI", "PROBLEMİN TANIMI" vb. için genel pattern
+    pattern = r"Keywords\s*[—:\-–;]+\s*(.*?)(?=\n\s*I\.|I\.\s|GİRİŞ|INTRODUCTION|PROBLEM|\n\s*\n\s*[A-Z][a-z]+)"
+    match = re.search(pattern, text, re.DOTALL | re.IGNORECASE)
+    
+    if match:
+        result = clean_text(match.group(1))
+        # Eğer sonuç çok uzunsa (>200 karakter), muhtemelen yanlış yakalanmıştır, sadece ilk cümleyi al
+        if len(result) > 200:
+            # Nokta veya çift newline'da kes
+            parts = result.split('.')
+            if parts:
+                result = clean_text(parts[0] + '.')
+        return result
+    
+    # Eğer yukarıdaki pattern başarısız olursa, daha basit bir yöntem dene
+    # Keywords'den sonra ilk satırı al (çift newline'a kadar)
+    simple_pattern = r"Keywords\s*[—:\-–;]+\s*([^\n]+)"
+    simple_match = re.search(simple_pattern, text, re.IGNORECASE)
+    if simple_match:
+        return clean_text(simple_match.group(1))
+    
+    return ""
 
 
 # ====================================================================
@@ -565,6 +634,12 @@ def process_pdf(pdf_path: str, year: str, output_csv: str | None = None):
         # Özetleri çıkar (fallback stratejileriyle)
         abs_tr, abs_en = extract_abstracts_with_fallback(doc, page_idx)
 
+        # Anahtar kelimeleri çıkar (TR ve EN ayrı)
+        # Anahtar kelimeler için sayfa metnini topla (birkaç sayfaya yayılabilir)
+        keywords_text = collect_until_markers(doc, page_idx, ["I.", "GİRİŞ", "INTRODUCTION"], hard_limit=3)
+        keywords_tr = extract_keywords_tr(keywords_text)
+        keywords_en = extract_keywords_en(keywords_text)
+
         # Makale bilgilerini kaydet
         rows.append({
             "PageNumber": page_idx + 1,
@@ -573,6 +648,8 @@ def process_pdf(pdf_path: str, year: str, output_csv: str | None = None):
             "Title_EN": title_en,
             "Abstract_TR": abs_tr,
             "Abstract_EN": abs_en,
+            "Keywords_TR": keywords_tr,
+            "Keywords_EN": keywords_en,
         })
 
         # İlerleme göster
@@ -587,7 +664,7 @@ def process_pdf(pdf_path: str, year: str, output_csv: str | None = None):
 
     # CSV'ye yaz
     with open(output_csv, "w", newline="", encoding="utf-8-sig") as f:
-        fieldnames = ["PageNumber", "Year", "Title_TR", "Title_EN", "Abstract_TR", "Abstract_EN"]
+        fieldnames = ["PageNumber", "Year", "Title_TR", "Title_EN", "Abstract_TR", "Abstract_EN", "Keywords_TR", "Keywords_EN"]
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         for row in rows:
