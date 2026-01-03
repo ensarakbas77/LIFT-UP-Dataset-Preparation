@@ -4,15 +4,22 @@
 
 /* Global Styles */
 :root {
-    --primary-color: #4f46e5;
-    --primary-dark: #4338ca;
+    --primary-color: #0891b2;
+    --primary-dark: #0e7490;
+    --primary-light: #06b6d4;
+    --secondary-color: #6366f1;
     --success-color: #10b981;
-    --danger-color: #ef4444;
+    --danger-color: #f43f5e;
     --warning-color: #f59e0b;
-    --dark-color: #1f2937;
-    --light-color: #f9fafb;
-    --border-radius: 12px;
-    --transition: all 0.3s ease;
+    --info-color: #3b82f6;
+    --dark-color: #1e293b;
+    --light-color: #f8fafc;
+    --border-radius: 16px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
 }
 
 * {
@@ -23,15 +30,16 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 50%, #8b5cf6 100%);
     min-height: 100vh;
     background-attachment: fixed;
 }
 
 /* Navbar Styles */
 .navbar {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    background: linear-gradient(135deg, #0891b2 0%, #6366f1 100%) !important;
     padding: 1rem 0;
+    box-shadow: var(--shadow-lg);
 }
 
 .navbar-brand {
@@ -53,7 +61,7 @@ body {
 
 /* Header Styles */
 .display-4 {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #0891b2 0%, #6366f1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -95,7 +103,7 @@ body {
 
 .upload-area.dragover {
     border-color: var(--primary-color);
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(8, 145, 178, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
     transform: scale(1.05);
 }
 
@@ -163,13 +171,14 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
+    box-shadow: 0 4px 15px rgba(8, 145, 178, 0.4);
 }
 
 .btn-primary:hover {
+    background: linear-gradient(135deg, #0e7490 0%, #0891b2 100%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+    box-shadow: 0 8px 25px rgba(8, 145, 178, 0.5);
 }
 
 .btn-success {
@@ -198,7 +207,7 @@ body {
 }
 
 .progress-bar {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #0891b2 0%, #6366f1 100%);
     font-size: 0.95rem;
 }
 
@@ -211,12 +220,14 @@ body {
 
 .alert-success {
     border-left-color: var(--success-color);
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.05) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .alert-danger {
     border-left-color: var(--danger-color);
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.05) 100%);
+    background: linear-gradient(135deg, rgba(244, 63, 94, 0.15) 0%, rgba(225, 29, 72, 0.05) 100%);
+    border: 1px solid rgba(244, 63, 94, 0.2);
 }
 
 @keyframes slideIn {
@@ -342,17 +353,17 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #0891b2 0%, #6366f1 100%);
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, #5a4dd8 0%, #6a3f8f 100%);
+    background: linear-gradient(135deg, #0e7490 0%, #4f46e5 100%);
 }
 
 /* Analysis Section Styles */
 .bg-gradient-info {
-    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
 }
 
 .stat-box {
@@ -365,19 +376,23 @@ body {
 }
 
 .bg-primary-light {
-    background: rgba(79, 70, 229, 0.1);
+    background: linear-gradient(135deg, rgba(8, 145, 178, 0.15) 0%, rgba(6, 182, 212, 0.1) 100%);
+    border: 1px solid rgba(8, 145, 178, 0.2);
 }
 
 .bg-success-light {
-    background: rgba(16, 185, 129, 0.1);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.1) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .bg-warning-light {
-    background: rgba(245, 158, 11, 0.1);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.1) 100%);
+    border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
 .bg-info-light {
-    background: rgba(6, 182, 212, 0.1);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.1) 100%);
+    border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
 #dataPreviewTable {
@@ -385,9 +400,11 @@ body {
 }
 
 #dataPreviewTable th {
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(8, 145, 178, 0.15) 0%, rgba(99, 102, 241, 0.1) 100%);
     font-weight: 600;
     white-space: nowrap;
+    color: var(--dark-color);
+    border-bottom: 2px solid var(--primary-color);
 }
 
 #dataPreviewTable td {
@@ -404,17 +421,20 @@ body {
 }
 
 .table-hover tbody tr:hover {
-    background-color: rgba(102, 126, 234, 0.05);
+    background-color: rgba(8, 145, 178, 0.08);
+    transform: scale(1.01);
+    transition: var(--transition);
 }
 
 .btn-info {
-    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
     color: white;
     border: none;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
 }
 
 .btn-info:hover {
-    background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
 }
