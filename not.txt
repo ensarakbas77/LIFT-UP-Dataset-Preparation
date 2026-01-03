@@ -1,0 +1,23 @@
+data_collection.py içerisinde pdf içerisindeki makalelerin başlıklarını ve özetlerini (Tr ve En) olarak çekiyoruz. İlk olarak kodu incele. Daha sonrasında bu makalelerde bulunan Anahtar Kelimeler kısmında yer alan kelimeleri de çekmemiz gerek (Hem Türkçe hem İngilizce) bunu yaparken nasıl bir strateji geliştirebiliriz. PDF i incele daha sonrasında ben onay verince kodu düzenlemeye geçeriz.
+
+
+O zaman regex ile çıkarım yapabiliriz. Aşağıda madde madde nasıl yapman gerektiğini anlatıyorum.
+
+1) Anahtar Kelimeleri çıkarmak için "Anahtar Kelimeler—" ile "Abstract" arasını, Keywords için "Keywords—" ile "Giriş" bölümü ve "Problem Tanımı" arasını yakala.
+
+2) Bu işlemleri iki farklı fonksiyon içerisinde gerçekleştir ve yorum satırlarıyla açıkla bunun için data.collection.py dosyasını detaylıca incele ve uygun şekilde ekleme yap.
+
+3) Sonrasında ise bu iki değeri data_collection.py içerisinde tanımlanan csv formatı için Keywords_TR ve Keywords_EN şeklinde iki kolon adıyla kaydet.
+
+
+        # Makale bilgilerini kaydet
+        rows.append({
+            "PageNumber": page_idx + 1,
+            "Year": year,
+            "Title_TR": title_tr,
+            "Title_EN": title_en,
+            "Abstract_TR": abs_tr,
+            "Abstract_EN": abs_en,
+	    "Keywords_TR": 
+            "Keywords_EN": 
+        })
