@@ -12,117 +12,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            /* TUSAŞ Kurumsal Renkleri (Yaklaşık Değerler) */
-            --tusas-navy: #1F2D5A;    /* Kurumsal Lacivert */
-            --tusas-blue: #00A3E0;    /* Gök Mavisi/Cyan */
-            --tusas-gray: #F4F6F9;    /* Açık Gri Arkaplan */
-            --tusas-red: #E30613;     /* Aksan Kırmızı */
-            --tusas-dark: #1a1a1a;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--tusas-gray);
-            color: var(--tusas-dark);
-        }
-
-        /* Navbar Özelleştirme */
-        .navbar-tusas {
-            background: linear-gradient(135deg, var(--tusas-navy) 0%, #0d1b3e 100%);
-            border-bottom: 4px solid var(--tusas-blue);
-        }
-
-        .navbar-brand {
-            font-family: 'Orbitron', sans-serif; /* Teknolojik font */
-            letter-spacing: 1px;
-            font-weight: 700;
-        }
-
-        /* Başlıklar */
-        h1, h2, h3, h4, h5, h6 {
-            color: var(--tusas-navy);
-            font-weight: 700;
-        }
-
-        .display-4 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            color: var(--tusas-navy);
-        }
-
-        /* Kart Tasarımı */
-        .card {
-            border: none;
-            box-shadow: 0 10px 30px rgba(31, 45, 90, 0.1) !important;
-            transition: transform 0.3s ease;
-        }
-        
-        .upload-area {
-            border: 2px dashed #cbd5e1;
-            border-radius: 1rem;
-            padding: 3rem;
-            background-color: #ffffff;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .upload-area:hover, .upload-area.dragover {
-            border-color: var(--tusas-blue);
-            background-color: rgba(0, 163, 224, 0.05);
-        }
-
-        /* Butonlar */
-        .btn-primary {
-            background-color: var(--tusas-navy);
-            border-color: var(--tusas-navy);
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--tusas-blue);
-            border-color: var(--tusas-blue);
-            box-shadow: 0 4px 15px rgba(0, 163, 224, 0.4);
-        }
-
-        .btn-info {
-            background-color: var(--tusas-blue);
-            border-color: var(--tusas-blue);
-            color: white;
-        }
-        
-        .btn-info:hover {
-            background-color: #008dba;
-            color: white;
-        }
-
-        /* İkon Renkleri */
-        .text-primary {
-            color: var(--tusas-blue) !important;
-        }
-        
-        .bg-primary-light { background-color: rgba(31, 45, 90, 0.1); }
-        .bg-success-light { background-color: rgba(25, 135, 84, 0.1); }
-        .bg-warning-light { background-color: rgba(255, 193, 7, 0.1); }
-        .bg-info-light { background-color: rgba(13, 202, 240, 0.1); }
-
-        /* Progress Bar */
-        .progress-bar {
-            background-color: var(--tusas-blue) !important;
-        }
-
-        /* Footer */
-        .footer {
-            background-color: var(--tusas-navy) !important;
-            color: rgba(255,255,255,0.7);
-        }
-        .footer i {
-            color: var(--tusas-blue);
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
@@ -135,7 +25,7 @@
                     <span class="d-block fs-6 fw-light" style="font-family: 'Inter'; letter-spacing: 0;">Dataset Extraction Tool</span>
                 </div>
             </a>
-            <span class="navbar-text text-white-50 d-none d-md-block">
+            <span class="navbar-text text-white-50 d-none d-md-block small text-uppercase fw-bold">
                 <i class="fas fa-shield-alt me-1"></i>
                 TUSAŞ Internal Use Only
             </span>
@@ -144,9 +34,7 @@
 
     <div class="container my-5">
         <div class="text-center mb-5">
-            <h1 class="display-4 mb-3">
-                PDF Makale Veri Çıkarıcı
-            </h1>
+            <h1 class="display-4 mb-3">PDF Veri Çıkarıcı</h1>
             <p class="lead text-muted">
                 Yapay zeka destekli algoritma ile PDF makalelerinden <span style="color: var(--tusas-blue); font-weight: 600;">Başlık, Özet ve Anahtar Kelimeleri</span> otomatik ayrıştırın.
             </p>
@@ -154,27 +42,25 @@
 
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <div class="card rounded-4">
-                    <div class="card-body p-5">
+                <div class="card rounded-4 p-4">
+                    <div class="card-body">
                         <form id="uploadForm" enctype="multipart/form-data">
                             <div class="mb-4">
-                                <label class="form-label fw-bold text-uppercase small text-muted" style="letter-spacing: 1px;">
-                                    Dosya Yükleme
-                                </label>
+                                <label class="form-label fw-bold text-uppercase small text-muted">Dosya Yükleme</label>
                                 <div class="upload-area" id="uploadArea">
-                                    <input type="file" class="form-control d-none" id="pdfFile" name="pdfFile"
-                                        accept=".pdf" required>
+                                    <input type="file" class="form-control d-none" id="pdfFile" name="pdfFile" accept=".pdf" required>
+                                    
                                     <div class="upload-content text-center" id="uploadContent">
                                         <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-3"></i>
                                         <h5 class="fw-bold" style="color: var(--tusas-navy);">PDF Dosyasını Seçin</h5>
                                         <p class="text-muted small">veya dosyayı buraya sürükleyip bırakın</p>
                                     </div>
-                                    <div class="file-info d-none" id="fileInfo">
+
+                                    <div class="file-info d-none text-center" id="fileInfo">
                                         <i class="fas fa-file-pdf fa-2x text-danger mb-2"></i>
                                         <p class="mb-0 fw-semibold" id="fileName" style="color: var(--tusas-navy);"></p>
                                         <p class="text-muted small" id="fileSize"></p>
-                                        <button type="button" class="btn btn-sm btn-outline-danger mt-2 rounded-pill px-3"
-                                            id="removeFile">
+                                        <button type="button" class="btn btn-sm btn-outline-danger mt-2 rounded-pill px-3" id="removeFile">
                                             <i class="fas fa-times me-1"></i> Kaldır
                                         </button>
                                     </div>
@@ -182,40 +68,31 @@
                             </div>
 
                             <div class="mb-4">
-                                <label for="year" class="form-label fw-bold text-uppercase small text-muted" style="letter-spacing: 1px;">
-                                    Proje Dönemi / Yılı
-                                </label>
+                                <label for="year" class="form-label fw-bold text-uppercase small text-muted">Proje Dönemi / Yılı</label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-light border-end-0">
                                         <i class="fas fa-calendar-alt text-primary"></i>
                                     </span>
-                                    <input type="text" class="form-control form-control-lg border-start-0 ps-0" id="year" name="year"
-                                        value="2021-2022" placeholder="Örn: 2021-2022" required>
+                                    <input type="text" class="form-control form-control-lg border-start-0 ps-0" id="year" name="year" value="2021-2022" placeholder="Örn: 2021-2022" required>
                                 </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary btn-lg w-100 py-3 rounded-3 shadow-sm" id="submitBtn">
-                                <i class="fas fa-microchip me-2"></i>
-                                VERİ ÇIKARMA İŞLEMİNİ BAŞLAT
+                                <i class="fas fa-microchip me-2"></i> VERİ ÇIKARMA İŞLEMİNİ BAŞLAT
                             </button>
                         </form>
 
                         <div class="mt-4 d-none" id="progressSection">
                             <div class="progress rounded-pill" style="height: 25px;">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated"
-                                    role="progressbar" style="width: 100%" id="progressBar">
-                                    <span class="small fw-bold">
-                                        <i class="fas fa-cog fa-spin me-2"></i> İŞLENİYOR...
-                                    </span>
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" id="progressBar">
+                                    <span class="small fw-bold"><i class="fas fa-cog fa-spin me-2"></i> İŞLENİYOR...</span>
                                 </div>
                             </div>
-                            <p class="text-center text-muted mt-2 small" id="progressText">
-                                Algoritma çalışıyor, lütfen bekleyin...
-                            </p>
+                            <p class="text-center text-muted mt-2 small" id="progressText">Algoritma çalışıyor, lütfen bekleyin...</p>
                         </div>
 
                         <div class="mt-4 d-none" id="resultSection">
-                            <div class="alert alert-success shadow-sm border-0 rounded-3" style="background-color: #d1e7dd; color: #0f5132;" role="alert">
+                            <div class="alert alert-success shadow-sm border-0 rounded-3" style="background-color: #d1e7dd; color: #0f5132;">
                                 <div class="d-flex align-items-center mb-3">
                                     <div class="rounded-circle bg-success text-white p-2 me-3">
                                         <i class="fas fa-check fa-lg"></i>
@@ -225,22 +102,22 @@
                                         <p class="mb-0 small opacity-75" id="resultMessage"></p>
                                     </div>
                                 </div>
-                                <div class="d-grid gap-2">
-                                    <button class="btn btn-info btn-lg text-white" id="analyzeBtn">
-                                        <i class="fas fa-chart-pie me-2"></i> Sonuçları Analiz Et
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button class="btn btn-info text-white flex-grow-1" id="analyzeBtn">
+                                        <i class="fas fa-chart-pie me-2"></i> Analiz Et
                                     </button>
-                                    <button class="btn btn-success btn-lg" id="downloadBtn">
-                                        <i class="fas fa-file-csv me-2"></i> CSV Olarak İndir
+                                    <button class="btn btn-success flex-grow-1" id="downloadBtn">
+                                        <i class="fas fa-file-csv me-2"></i> İndir
                                     </button>
                                     <button class="btn btn-outline-secondary" id="resetBtn">
-                                        <i class="fas fa-redo me-2"></i> Yeni Dosya Yükle
+                                        <i class="fas fa-redo"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
 
                         <div class="mt-4 d-none" id="errorSection">
-                            <div class="alert alert-danger shadow-sm border-0 rounded-3" role="alert">
+                            <div class="alert alert-danger shadow-sm border-0 rounded-3">
                                 <div class="d-flex align-items-center">
                                     <i class="fas fa-exclamation-circle fa-2x me-3"></i>
                                     <div>
@@ -248,9 +125,7 @@
                                         <p class="mb-0 small" id="errorMessage"></p>
                                     </div>
                                 </div>
-                                <button class="btn btn-sm btn-outline-danger mt-3 w-100" id="retryBtn">
-                                    Tekrar Dene
-                                </button>
+                                <button class="btn btn-sm btn-outline-danger mt-3 w-100" id="retryBtn">Tekrar Dene</button>
                             </div>
                         </div>
 
@@ -262,63 +137,67 @@
         <div class="mt-5 d-none" id="analysisSection">
              <div class="card border-0 shadow-sm rounded-3">
                 <div class="card-header text-white" style="background-color: var(--tusas-navy);">
-                    <h5 class="mb-0"><i class="fas fa-analytics me-2"></i> Detaylı Analiz Raporu</h5>
+                    <h5 class="mb-0 py-1"><i class="fas fa-analytics me-2"></i> Detaylı Analiz Raporu</h5>
                 </div>
-                <div class="card-body">
-                    <div class="row mb-4">
+                <div class="card-body p-4">
+                    <div class="row mb-4 g-3">
                         <div class="col-md-3">
-                            <div class="p-3 rounded-3 text-center" style="background-color: #e8f4fd;">
-                                <i class="fas fa-file-alt fa-2x mb-2" style="color: var(--tusas-navy);"></i>
-                                <h3 class="fw-bold mb-0" id="statTotalArticles" style="color: var(--tusas-navy);">0</h3>
-                                <small class="text-muted">Toplam Makale</small>
+                            <div class="stat-box-navy p-3 rounded-3 text-center h-100">
+                                <i class="fas fa-file-alt fa-2x mb-2"></i>
+                                <h3 class="fw-bold mb-0" id="statTotalArticles">0</h3>
+                                <small class="text-muted fw-bold">Toplam Makale</small>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="p-3 rounded-3 text-center" style="background-color: #e0f7fa;">
-                                <i class="fas fa-layer-group fa-2x mb-2" style="color: var(--tusas-blue);"></i>
-                                <h3 class="fw-bold mb-0" id="statTotalColumns" style="color: var(--tusas-navy);">0</h3>
-                                <small class="text-muted">Veri Sütunu</small>
+                            <div class="stat-box-blue p-3 rounded-3 text-center h-100">
+                                <i class="fas fa-layer-group fa-2x mb-2"></i>
+                                <h3 class="fw-bold mb-0" id="statTotalColumns">0</h3>
+                                <small class="text-muted fw-bold">Veri Sütunu</small>
                             </div>
                         </div>
                         <div class="col-md-3">
-                             <div class="p-3 rounded-3 text-center" style="background-color: #fff3cd;">
-                                <i class="fas fa-exclamation-triangle fa-2x mb-2 text-warning"></i>
-                                <h3 class="fw-bold mb-0" id="statMissingValues" style="color: var(--tusas-navy);">0</h3>
-                                <small class="text-muted">Eksik Veri</small>
+                             <div class="stat-box-warn p-3 rounded-3 text-center h-100">
+                                <i class="fas fa-exclamation-triangle fa-2x mb-2"></i>
+                                <h3 class="fw-bold mb-0" id="statMissingValues">0</h3>
+                                <small class="text-muted fw-bold">Eksik Veri</small>
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div class="p-3 rounded-3 text-center" style="background-color: #f8f9fa;">
-                                <i class="fas fa-database fa-2x mb-2 text-secondary"></i>
-                                <h3 class="fw-bold mb-0" id="statFileSize" style="color: var(--tusas-navy);">0</h3>
-                                <small class="text-muted">Dosya Boyutu</small>
+                            <div class="stat-box-gray p-3 rounded-3 text-center h-100">
+                                <i class="fas fa-database fa-2x mb-2"></i>
+                                <h3 class="fw-bold mb-0" id="statFileSize">0</h3>
+                                <small class="text-muted fw-bold">Dosya Boyutu</small>
                             </div>
                         </div>
                     </div>
 
                     <div class="row g-4 mb-4">
                         <div class="col-md-6">
-                            <label class="small fw-bold text-muted mb-1">TÜRKÇE VERİ DOLULUĞU</label>
+                            <div class="d-flex justify-content-between mb-1">
+                                <label class="small fw-bold text-muted">TÜRKÇE VERİ DOLULUĞU</label>
+                                <span class="small fw-bold" id="trPercentage">%0</span>
+                            </div>
                             <div class="progress" style="height: 10px;">
                                 <div class="progress-bar bg-danger" id="trProgressBar" role="progressbar" style="width: 0%"></div>
                             </div>
-                            <small class="float-end fw-bold" id="trPercentage">%0</small>
                         </div>
                         <div class="col-md-6">
-                            <label class="small fw-bold text-muted mb-1">İNGİLİZCE VERİ DOLULUĞU</label>
+                            <div class="d-flex justify-content-between mb-1">
+                                <label class="small fw-bold text-muted">İNGİLİZCE VERİ DOLULUĞU</label>
+                                <span class="small fw-bold" id="enPercentage">%0</span>
+                            </div>
                             <div class="progress" style="height: 10px;">
                                 <div class="progress-bar" id="enProgressBar" role="progressbar" style="width: 0%; background-color: var(--tusas-navy);"></div>
                             </div>
-                            <small class="float-end fw-bold" id="enPercentage">%0</small>
                         </div>
                      </div>
                     
-                    <div id="missingDetailsSection" class="d-none alert alert-warning mt-3">
-                        <strong>Eksik Veri Detayları:</strong> <span id="missingDetailsList"></span>
+                    <div id="missingDetailsSection" class="d-none alert alert-warning mt-3 border-0">
+                        <i class="fas fa-info-circle me-1"></i> <strong>Eksik Veri Detayları:</strong> <span id="missingDetailsList"></span>
                     </div>
 
                     <div class="d-flex justify-content-end gap-2 mt-4">
-                        <button class="btn btn-outline-secondary" id="closeAnalysisBtn">Kapat</button>
+                        <button class="btn btn-outline-secondary btn-sm" id="closeAnalysisBtn">Analizi Kapat</button>
                     </div>
                 </div>
              </div>
@@ -326,36 +205,27 @@
 
         <div class="row mt-5 g-4">
             <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm text-center p-4 hover-elevate">
+                <div class="card h-100 text-center p-4 info-card">
                     <div class="mb-3">
-                        <span class="fa-stack fa-2x">
-                            <i class="fas fa-circle fa-stack-2x text-light"></i>
-                            <i class="fas fa-heading fa-stack-1x text-primary"></i>
-                        </span>
+                        <i class="fas fa-heading fa-3x text-primary"></i>
                     </div>
                     <h6 class="fw-bold text-dark">Başlık Ayrıştırma</h6>
                     <p class="text-muted small mb-0">Makale başlıkları font büyüklüğü ve konum analizi ile tespit edilir.</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                <div class="card h-100 text-center p-4 info-card">
                     <div class="mb-3">
-                        <span class="fa-stack fa-2x">
-                            <i class="fas fa-circle fa-stack-2x text-light"></i>
-                            <i class="fas fa-align-left fa-stack-1x text-success"></i>
-                        </span>
+                        <i class="fas fa-align-left fa-3x" style="color: var(--tusas-blue);"></i>
                     </div>
                     <h6 class="fw-bold text-dark">Özet & Abstract</h6>
                     <p class="text-muted small mb-0">Sol ve sağ sütun taraması ile Türkçe ve İngilizce özetler ayrılır.</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm text-center p-4">
+                <div class="card h-100 text-center p-4 info-card">
                     <div class="mb-3">
-                        <span class="fa-stack fa-2x">
-                            <i class="fas fa-circle fa-stack-2x text-light"></i>
-                            <i class="fas fa-tags fa-stack-1x text-warning"></i>
-                        </span>
+                        <i class="fas fa-tags fa-3x text-warning"></i>
                     </div>
                     <h6 class="fw-bold text-dark">Anahtar Kelimeler</h6>
                     <p class="text-muted small mb-0">Regex algoritmaları ile anahtar kelime blokları yakalanır.</p>
@@ -364,9 +234,9 @@
         </div>
     </div>
 
-    <footer class="footer mt-auto py-4">
-        <div class="container text-center">
-            <p class="mb-1 text-white opacity-75 fw-bold">
+    <footer class="footer py-4 text-center">
+        <div class="container">
+            <p class="mb-1 text-white opacity-100 fw-bold">
                 TUSAŞ - Türk Havacılık ve Uzay Sanayii A.Ş.
             </p>
             <p class="small mb-0 opacity-50">
@@ -376,8 +246,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
     <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
-
 </html>
