@@ -1,440 +1,149 @@
-/* ============================================
-   LIFT UP Dataset Extraction - Custom Styles
-   ============================================ */
+/* TUSAŞ KURUMSAL TEMA - LIFT UP */
 
-/* Global Styles */
 :root {
-    --primary-color: #0891b2;
-    --primary-dark: #0e7490;
-    --primary-light: #06b6d4;
-    --secondary-color: #6366f1;
-    --success-color: #10b981;
-    --danger-color: #f43f5e;
-    --warning-color: #f59e0b;
-    --info-color: #3b82f6;
-    --dark-color: #1e293b;
-    --light-color: #f8fafc;
-    --border-radius: 16px;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    /* TUSAŞ Renk Paleti */
+    --tusas-navy: #1F2D5A;    /* Kurumsal Lacivert */
+    --tusas-blue: #00A3E0;    /* Gök Mavisi/Cyan */
+    --tusas-gray: #F4F6F9;    /* Arkaplan Grisi */
+    --tusas-red: #E30613;     /* Aksan Kırmızı */
+    --tusas-dark: #1a1a1a;    /* Metin Rengi */
+    --tusas-white: #ffffff;
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 50%, #8b5cf6 100%);
+    font-family: 'Inter', sans-serif;
+    background-color: var(--tusas-gray);
+    color: var(--tusas-dark);
     min-height: 100vh;
-    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Navbar Styles */
-.navbar {
-    background: linear-gradient(135deg, #0891b2 0%, #6366f1 100%) !important;
+/* --- NAVBAR --- */
+.navbar-tusas {
+    background: linear-gradient(135deg, var(--tusas-navy) 0%, #0d1b3e 100%);
+    border-bottom: 4px solid var(--tusas-blue);
     padding: 1rem 0;
     box-shadow: var(--shadow-lg);
 }
 
 .navbar-brand {
-    font-size: 1.5rem;
+    font-family: 'Orbitron', sans-serif; /* Teknolojik başlık fontu */
+    letter-spacing: 1px;
     font-weight: 700;
-    color: white !important;
-    transition: var(--transition);
 }
 
-.navbar-brand:hover {
-    transform: translateY(-2px);
+/* --- BAŞLIKLAR & TİPOGRAFİ --- */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--tusas-navy);
+    font-weight: 700;
 }
 
-/* Main Container */
-.container {
-    position: relative;
-    z-index: 1;
-}
-
-/* Header Styles */
 .display-4 {
-    background: linear-gradient(135deg, #0891b2 0%, #6366f1 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    color: var(--tusas-navy);
+    text-transform: uppercase;
 }
 
-/* Card Styles */
+/* --- KART TASARIMI --- */
 .card {
-    background: white;
-    border-radius: 20px !important;
-    overflow: hidden;
-    transition: var(--transition);
+    border: none;
+    box-shadow: 0 10px 30px rgba(31, 45, 90, 0.08) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: var(--tusas-white);
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(31, 45, 90, 0.12) !important;
 }
 
-/* Upload Area Styles */
+/* --- UPLOAD ALANI --- */
 .upload-area {
-    border: 3px dashed #cbd5e1;
-    border-radius: var(--border-radius);
-    padding: 3rem 2rem;
-    background: #f8fafc;
-    transition: var(--transition);
+    border: 2px dashed #cbd5e1;
+    border-radius: 1rem;
+    padding: 3rem;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
     cursor: pointer;
-    position: relative;
-    min-height: 250px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.upload-area:hover {
-    border-color: var(--primary-color);
-    background: #f1f5f9;
-    transform: scale(1.02);
-}
-
-.upload-area.dragover {
-    border-color: var(--primary-color);
-    background: linear-gradient(135deg, rgba(8, 145, 178, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
-    transform: scale(1.05);
-}
-
-.upload-content {
-    pointer-events: none;
-}
-
-.file-info {
-    text-align: center;
-}
-
-/* Form Controls */
-.form-control,
-.form-select {
-    border-radius: var(--border-radius);
-    border: 2px solid #e2e8f0;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    transition: var(--transition);
-}
-
-.form-control:focus,
-.form-select:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
-}
-
-.form-control-lg {
-    padding: 1rem 1.25rem;
-    font-size: 1.1rem;
-}
-
-.form-label {
-    font-size: 0.95rem;
-    color: var(--dark-color);
-    margin-bottom: 0.5rem;
-}
-
-/* Button Styles */
-.btn {
-    border-radius: var(--border-radius);
-    font-weight: 600;
-    transition: var(--transition);
-    border: none;
     position: relative;
     overflow: hidden;
 }
 
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
+.upload-area:hover, .upload-area.dragover {
+    border-color: var(--tusas-blue);
+    background-color: rgba(0, 163, 224, 0.04);
 }
 
-.btn:hover::before {
-    width: 300px;
-    height: 300px;
-}
-
+/* --- BUTONLAR --- */
 .btn-primary {
-    background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
-    box-shadow: 0 4px 15px rgba(8, 145, 178, 0.4);
+    background-color: var(--tusas-navy);
+    border-color: var(--tusas-navy);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 12px 24px;
+    transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-    background: linear-gradient(135deg, #0e7490 0%, #0891b2 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(8, 145, 178, 0.5);
-}
-
-.btn-success {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-}
-
-.btn-success:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
-}
-
-.btn-outline-danger:hover {
-    transform: translateY(-2px);
-}
-
-.btn-outline-secondary:hover {
-    transform: translateY(-2px);
-}
-
-/* Progress Bar */
-.progress {
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    background: #e2e8f0;
-}
-
-.progress-bar {
-    background: linear-gradient(135deg, #0891b2 0%, #6366f1 100%);
-    font-size: 0.95rem;
-}
-
-/* Alert Styles */
-.alert {
-    border-radius: var(--border-radius) !important;
-    border-left: 5px solid;
-    animation: slideIn 0.5s ease;
-}
-
-.alert-success {
-    border-left-color: var(--success-color);
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.05) 100%);
-    border: 1px solid rgba(16, 185, 129, 0.2);
-}
-
-.alert-danger {
-    border-left-color: var(--danger-color);
-    background: linear-gradient(135deg, rgba(244, 63, 94, 0.15) 0%, rgba(225, 29, 72, 0.05) 100%);
-    border: 1px solid rgba(244, 63, 94, 0.2);
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Info Cards */
-.info-card {
-    background: white;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-    transition: var(--transition);
-    height: 100%;
-    margin-bottom: 1rem;
-}
-
-.info-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
-}
-
-.info-card i {
-    display: block;
-}
-
-/* Footer */
-.footer {
-    background: white !important;
-    margin-top: 4rem;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.05);
-}
-
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes pulse {
-
-    0%,
-    100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.05);
-    }
-}
-
-/* Utility Classes */
-.shadow-lg {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
-}
-
-.rounded-4 {
-    border-radius: 20px !important;
-}
-
-.rounded-3 {
-    border-radius: 15px !important;
-}
-
-.text-primary {
-    color: var(--primary-color) !important;
-}
-
-/* Loading Spinner */
-.fa-spinner {
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .upload-area {
-        padding: 2rem 1rem;
-        min-height: 200px;
-    }
-
-    .card-body {
-        padding: 2rem !important;
-    }
-
-    .display-4 {
-        font-size: 2rem !important;
-    }
-
-    .info-card {
-        margin-bottom: 1rem;
-    }
-}
-
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #0891b2 0%, #6366f1 100%);
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, #0e7490 0%, #4f46e5 100%);
-}
-
-/* Analysis Section Styles */
-.bg-gradient-info {
-    background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
-}
-
-.stat-box {
-    transition: var(--transition);
-}
-
-.stat-box:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.bg-primary-light {
-    background: linear-gradient(135deg, rgba(8, 145, 178, 0.15) 0%, rgba(6, 182, 212, 0.1) 100%);
-    border: 1px solid rgba(8, 145, 178, 0.2);
-}
-
-.bg-success-light {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.1) 100%);
-    border: 1px solid rgba(16, 185, 129, 0.2);
-}
-
-.bg-warning-light {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.1) 100%);
-    border: 1px solid rgba(245, 158, 11, 0.2);
-}
-
-.bg-info-light {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.1) 100%);
-    border: 1px solid rgba(59, 130, 246, 0.2);
-}
-
-#dataPreviewTable {
-    font-size: 0.9rem;
-}
-
-#dataPreviewTable th {
-    background: linear-gradient(135deg, rgba(8, 145, 178, 0.15) 0%, rgba(99, 102, 241, 0.1) 100%);
-    font-weight: 600;
-    white-space: nowrap;
-    color: var(--dark-color);
-    border-bottom: 2px solid var(--primary-color);
-}
-
-#dataPreviewTable td {
-    max-width: 300px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-#dataPreviewTable td:hover {
-    overflow: visible;
-    white-space: normal;
-    word-wrap: break-word;
-}
-
-.table-hover tbody tr:hover {
-    background-color: rgba(8, 145, 178, 0.08);
-    transform: scale(1.01);
-    transition: var(--transition);
+    background-color: var(--tusas-blue);
+    border-color: var(--tusas-blue);
+    box-shadow: 0 4px 15px rgba(0, 163, 224, 0.4);
+    transform: translateY(-1px);
 }
 
 .btn-info {
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    background-color: var(--tusas-blue);
+    border-color: var(--tusas-blue);
     color: white;
-    border: none;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    font-weight: 600;
 }
 
 .btn-info:hover {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+    background-color: #008dba;
+    color: white;
 }
+
+.btn-outline-secondary:hover {
+    background-color: var(--tusas-gray);
+    color: var(--tusas-navy);
+}
+
+/* --- TEXT & ICON RENKLERİ --- */
+.text-primary {
+    color: var(--tusas-blue) !important;
+}
+
+/* --- PROGRESS BAR --- */
+.progress {
+    background-color: #e9ecef;
+    border-radius: 50rem;
+}
+
+.progress-bar {
+    background-color: var(--tusas-blue) !important;
+}
+
+/* --- FOOTER --- */
+.footer {
+    background-color: var(--tusas-navy) !important;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: auto; /* Footer'ı en alta itmek için */
+    border-top: 4px solid var(--tusas-red); /* İnce kırmızı çizgi detayı */
+}
+
+/* --- EKSTRA BİLEŞENLER --- */
+.info-card i {
+    transition: transform 0.3s ease;
+}
+
+.info-card:hover i {
+    transform: scale(1.1);
+}
+
+/* Analiz Kutuları Renkleri */
+.stat-box-navy { background-color: rgba(31, 45, 90, 0.1); color: var(--tusas-navy); }
+.stat-box-blue { background-color: rgba(0, 163, 224, 0.1); color: var(--tusas-blue); }
+.stat-box-warn { background-color: rgba(255, 193, 7, 0.15); color: #856404; }
+.stat-box-gray { background-color: #f8f9fa; color: #6c757d; }
