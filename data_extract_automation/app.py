@@ -199,8 +199,8 @@ def request_entity_too_large(error):
 
 if __name__ == '__main__':
     print("="*80)
-    print("🚀 LIFT UP Dataset Extraction Web Interface")
+    print("LIFT UP Dataset Extraction Web Interface")
     print("="*80)
-    print("📍 Uygulama başlatılıyor: http://localhost:5000")
+    print("Uygulama başlatılıyor: http://localhost:5000")
     print("="*80)
     app.run(debug=True, host='0.0.0.0', port=5000)
