@@ -21,29 +21,29 @@ Bu proje, akademik metinleri **Türkçe (TR)** ve **İngilizce (EN)** olarak ayr
 
 | Özellik | Açıklama |
 | :--- | :--- |
-| **📄 Otomatik PDF Ayrıştırma** | PDF içindeki makale başlangıçlarını, başlıkları ve metin bloklarını dil ayrımını koruyarak otomatik tespit eder. |
-| **💻 Modern Web Arayüzü** | Sürükle-bırak destekli, veri çekimi ve analiz imkanı sunan kullanıcı dostu arayüz. |
+| **📄 Otomatik PDF Ayrıştırma** | PDF içindeki makalelerin başlıkları, özetleri ve anahtar kelimelerini dil ayrımını koruyarak otomatik tespit eder. |
+| **💻 Modern Web Arayüzü** | Veri çekimi ve analiz imkanı sunan kullanıcı dostu arayüz. |
 | **📊 Veri Analizi** | Çıkarılan verilerin doluluk oranlarını, dil dağılımını ve eksik verileri anlık analiz eder. |
-| **🧠 Akıllı Algoritmalar** | • **Font Analizi:** Başlıkları yazı boyutuna göre tespit eder.<br>• **Regex:** Gelişmiş desenler ile özet/anahtar kelime yakalar.<br>• **Dil Tespiti:** Karakter analizi ve terim ipuçlarını kullanır. |
+
 
 ## 📁 Proje Yapısı
 
 ```text
 LIFT-UP-Dataset-Preparation/
 │
-├── data_extract_automation/     # Web Uygulaması (Flask)
+├── data_extract_automation/      # Web Uygulaması
 │   ├── static/
-│   │   ├── app.js              # Frontend mantığı
-│   │   └── style.css           # TUSAŞ temalı tasarım
+│   │   ├── app.js                # Frontend mantığı
+│   │   └── style.css             # TUSAŞ temalı tasarım
 │   ├── templates/
-│   │   └── index.html          # Ana sayfa
-│   ├── app.py                  # Flask sunucusu
-│   ├── analysis.py             # Analiz modülü
-│   └── data_extract.py         # PDF işleme motoru
+│   │   └── index.html            # Ana sayfa
+│   ├── app.py                    # Flask uygulaması
+│   ├── analysis.py               # Analiz modülü
+│   └── data_extract.py           # PDF işleme motoru
 │
-├── notebooks/                   # Veri Birleştirme
-│   ├── Data_Merging.ipynb
-│   └── Data_Preprocessing.ipynb
+├── notebooks/                   
+│   ├── Data_Merging.ipynb        # Veri Birleştirme
+│   └── Data_Preprocessing.ipynb  # Veri Ön İşleme
 │
 ├── data_collection.py           # CLI (Komut Satırı)
 └── README.md
@@ -53,10 +53,10 @@ Projeyi yerel ortamınızda çalıştırmak için aşağıdaki adımları sıras
 
 1. Repoyu Klonlayın
 ```text
-git clone [https://github.com/ensarakbas77/LIFT-UP-Dataset-Preparation.git](https://github.com/ensarakbas77/LIFT-UP-Dataset-Preparation.git)
+git clone https://github.com/ensarakbas77/LIFT-UP-Dataset-Preparation.git
 cd LIFT-UP-Dataset-Preparation
 ```
-2. Sanal Ortam Oluşturun (Önerilen)
+2. Sanal Ortam Oluşturun
 ```text
 python -m venv .venv
 
@@ -75,7 +75,7 @@ requirements.txt
 Projeyi iki farklı şekilde kullanabilirsiniz: Web Arayüzü veya Komut Satırı (CLI).
 
 ### 🌐 Yöntem 1: Web Arayüzü (Önerilen)
-Kullanıcı dostu arayüz üzerinden PDF yükleyip analiz sonuçlarını görselleştirebilirsiniz.
+Kullanıcı dostu arayüz üzerinden PDF yükleyip analiz sonuçlarını görebilirsiniz.
 
 Uygulamayı başlatın:
 ```text
@@ -88,13 +88,11 @@ http://localhost:5000
 1. PDF dosyasını sürükleyip bırakın  
 2. **“Veri Çıkarma İşlemini Başlat”** butonuna tıklayın  
 3. İşlem tamamlandığında:
-   - CSV indirilebilir
-   - Analiz ekranı görüntülenebilir
+   - CSV indirilebilir.
+   - Analiz ekranı görüntülenebilir.
 
 
 ### 🖥️ Yöntem 2: Komut Satırı (CLI)
-Toplu işlemler veya sunucu olmayan ortamlar için scripti kullanabilirsiniz.
-
 data_collection.py dosyasını açarak PDF_PATH değişkenini düzenleyin.
 
 Scripti çalıştırın:
@@ -106,12 +104,11 @@ python data_collection.py
 Bu araç, PDF madenciliği yaparken aşağıdaki stratejileri izler:
 
 ### 🧩 Makale Tespiti
-- Sayfa içerisinde **“Özetçe”** ve **“Abstract”** kelimeleri aranır  
-- Bu kelimeler yeni makale başlangıcı olarak kabul edilir  
+- Sayfa içerisinde **“Özetçe”** ve **“Abstract”** kelimeleri aranır.  
+- Bu kelimeler yeni makale başlangıcı olarak kabul edilir.
 
 ### 🏷️ Başlık Ayrıştırma
-- Sayfadaki **en büyük font boyutu** tespit edilir  
-- Başlık satırları **Y koordinatına göre** gruplanır  
+- Sayfadaki **en büyük font boyutu** tespit edilir.  
 - Türkçe / İngilizce ayrımı için:
   - Satır boşluğu
   - İngilizce kelime ipuçları
@@ -133,14 +130,14 @@ Bu araç, PDF madenciliği yaparken aşağıdaki stratejileri izler:
 
 ## 🎨 Arayüz & Tasarım
 
-Uygulama, **TUSAŞ kurumsal renk paleti (Navy Blue & Cyan)** kullanılarak modern ve sade bir tasarım anlayışıyla geliştirilmiştir.
+Uygulama, **TUSAŞ kurumsal renk paleti** kullanılarak modern ve sade bir tasarım anlayışıyla geliştirilmiştir.
 
 ### ✨ Yükleme Ekranı
 <p align="center">
   <img src="assets/ui-upload.png" width="800">
 </p>
 
-- Animasyonlu sürükle–bırak PDF yükleme alanı  
+- Sürükle bırak PDF yükleme alanı  
 - Dosya adı ve boyutunun gösterimi  
 - Kullanıcıya yönlendirici geri bildirimler  
 
