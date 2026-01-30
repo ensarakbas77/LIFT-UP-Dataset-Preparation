@@ -88,10 +88,10 @@ function handleFileSelect(file) {
         return;
     }
 
-    // Check file size (50MB limit)
-    const maxSize = 50 * 1024 * 1024;
+    // Check file size (200MB limit)
+    const maxSize = 200 * 1024 * 1024;
     if (file.size > maxSize) {
-        showError('Dosya boyutu çok büyük! Maksimum 50MB yükleyebilirsiniz.');
+        showError('Dosya boyutu çok büyük! Maksimum 200MB yükleyebilirsiniz.');
         return;
     }
 
@@ -307,6 +307,10 @@ function displayAnalysis(analysis) {
             <td>${row.Year || '-'}</td>
             <td title="${row.Title_TR || '-'}">${truncateText(row.Title_TR || '-', 50)}</td>
             <td title="${row.Title_EN || '-'}">${truncateText(row.Title_EN || '-', 50)}</td>
+            <td title="${row.Abstract_TR || '-'}">${truncateText(row.Abstract_TR || '-', 50)}</td>
+            <td title="${row.Abstract_EN || '-'}">${truncateText(row.Abstract_EN || '-', 50)}</td>
+            <td title="${row.Keywords_TR || '-'}">${truncateText(row.Keywords_TR || '-', 50)}</td>
+            <td title="${row.Keywords_EN || '-'}">${truncateText(row.Keywords_EN || '-', 50)}</td>
             <td>${statusBadge}</td>
         `;
 
