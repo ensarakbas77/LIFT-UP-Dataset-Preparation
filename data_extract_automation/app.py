@@ -15,7 +15,7 @@ from analysis import analyze_csv
 app = Flask(__name__)
 
 # Konfigürasyon
-app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50MB max file size
+app.config['MAX_CONTENT_LENGTH'] = 200 * 1024 * 1024  # 200MB max file size
 app.config['UPLOAD_FOLDER'] = tempfile.gettempdir()
 app.config['SECRET_KEY'] = 'lift-up-dataset-extraction-2026'
 
@@ -193,7 +193,7 @@ def request_entity_too_large(error):
     """Dosya boyutu çok büyük hatası"""
     return jsonify({
         'success': False, 
-        'error': 'Dosya boyutu çok büyük (maksimum 50MB)'
+        'error': 'Dosya boyutu çok büyük (maksimum 200MB)'
     }), 413
 
 
